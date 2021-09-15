@@ -49,7 +49,7 @@ class RegistrationComponent extends React.Component {
 
     switch (name) {
       case 'userName':
-        errors.userName = ( 6 < value.length && value.length < 20)
+        errors.userName = (value.length < 6 || value.length > 20)
           ? 'User Name should be min 6 and Max 20 characters'
           : '';
         break;
@@ -88,7 +88,12 @@ class RegistrationComponent extends React.Component {
 
   onRegistrationHandler = (e) => {
     e.preventDefault();
-    console.log(this.state.userDetail);
+    if(this.state.userDetail.userName !== '' && this.state.userDetail.email !== '' && this.state.userDetail.password !== '' && this.state.userDetail.confirmPassword !== '' && this.state.userDetail.phoneNumber !== '') {
+      console.log(this.state.userDetail);
+    } else {
+      alert('Enter all the fields');
+    }
+    
   }
 
   render() {
@@ -99,7 +104,7 @@ class RegistrationComponent extends React.Component {
         <form>
           <p>
             <label>User Name : </label>
-            <input type="text" name="username" value={this.state.userName} onChange={this.onChangeHandler} />
+            <input type="text" name="userName" value={this.state.userName} onChange={this.onChangeHandler} />
             <br/>
             {errors.userName.length > 0 && <span className="error">{errors.userName}</span>}
           </p>
